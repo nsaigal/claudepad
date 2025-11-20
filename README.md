@@ -1,40 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# ClaudePad
 
-## Getting Started
+**A freewriting tool powered by Claude AI**
 
-First, run the development server:
+ClaudePad is a full-stack prototype demonstrating how AI can enhance the writing experience through intuitive, collaborative interfaces. Built to explore emerging LLM capabilities and translate them into delightful user experiences.
+
+## 🎯 Project Goals
+
+This project showcases:
+
+- **Frontier AI Capabilities**: Real-time AI-powered editing with Claude's latest models
+- **Innovative UX**: Google Docs-style collaborative cursor animations that make AI feel like a writing partner
+- **Rapid Prototyping**: Built with modern full-stack tools for quick iteration and deployment
+- **User-Centric Design**: Inline accept/decline controls, custom instructions, and context-aware suggestions
+
+## ✨ Key Features
+
+### Intelligent Editing
+- **Document-wide analysis**: Press ⌘+Enter to get AI-powered typo corrections and style improvements
+- **Selective editing**: Highlight any text and provide custom prompts (e.g., "make it more concise")
+- **Learning system**: Declined edits are tracked so the AI won't suggest the same changes again
+
+### Delightful Interactions
+- **Collaborative cursor animation**: Watch as AI edits appear character-by-character with a cursor, creating the feeling of pair programming
+- **Inline controls**: Accept or decline individual edits with visual buttons, or batch operations with keyboard shortcuts
+- **Real-time feedback**: Typing sparkles, smooth animations, and clear visual states
+
+### Customizable Experience
+- **Custom instructions**: Tailor Claude's editing style (e.g., "prefer British English", "be more casual")
+- **Personal API keys**: Secure storage via HTTP-only cookies
+- **Full history**: Undo changes and export your work anytime
+
+## 🛠 Technical Implementation
+
+### Frontend Architecture
+- **Framework**: Next.js (Pages Router) with React 19
+- **Styling**: Tailwind CSS v4 for rapid, responsive design
+- **State Management**: React hooks with local storage persistence
+- **Animations**: Custom CSS animations for collaborative cursor effects
+
+### Backend & AI Integration
+- **API Layer**: Next.js API routes for secure server-side Claude API calls
+- **AI Model**: Claude Haiku (fast, efficient for real-time suggestions)
+- **Security**: API keys stored in HTTP-only cookies (not accessible to client JavaScript)
+- **Parsing**: Custom XML-based response format for reliable edit extraction
+
+### Novel UX Patterns
+- **Collaborative cursor simulation**: Multi-step animation sequence that mimics human editing:
+  1. Cursor appears at edit location
+  2. Original text strikes through
+  3. New text types out character-by-character
+  4. Accept/decline buttons appear
+- **Smart text matching**: Complex HTML-to-text position mapping for accurate in-place edits
+- **Scroll-aware animations**: Auto-scrolls to edits in long documents with visual pulses
+
+## 🚀 Getting Started
 
 ```bash
+# Install dependencies
+npm install
+
+# Add your API key
+# Get one at https://console.anthropic.com/settings/keys
+cp .env.example .env.local
+# Add ANTHROPIC_API_KEY=sk-ant-... to .env.local
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) and start writing!
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## 💡 Design Philosophy
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+This prototype embodies principles critical to frontier AI applications:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+1. **AI as Collaborator**: The animated cursor creates a sense of partnership rather than automated replacement
+2. **User Control**: Every suggestion can be accepted, rejected, or customized—the user always has final say
+3. **Progressive Disclosure**: Advanced features (custom instructions, selective editing) are available but don't clutter the default experience
+4. **Fail Gracefully**: Clear error messages, loading states, and fallbacks ensure reliability
+5. **Rapid Iteration**: Built for fast experimentation—easy to test new model capabilities or interaction patterns
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🎨 What Makes This Different
 
-## Learn More
+Unlike traditional grammar checkers, ClaudePad demonstrates:
 
-To learn more about Next.js, take a look at the following resources:
+- **Contextual intelligence**: Claude understands document-wide context for better suggestions
+- **Style improvements**: Beyond typos—rewrites unclear sentences with explanations
+- **Conversational prompting**: Users can highlight text and ask for specific changes in natural language
+- **Learning interface**: Tracks user preferences to avoid repetitive suggestions
+- **Real-time collaboration feel**: Animations create emotional connection with the AI
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+## 📊 Potential Extensions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This prototype platform could be extended to explore:
 
-## Deploy on Vercel
+- **Multi-modal editing**: Integrate vision models for image-based writing prompts
+- **Real-time collaboration**: Multiple users editing with AI as a third collaborator
+- **Domain-specific modes**: Scientific writing, creative fiction, technical documentation
+- **Advanced prompt engineering**: A/B test different system prompts to optimize suggestion quality
+- **Usage analytics**: Gather insights on which AI suggestions users find most valuable
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔒 Security & Privacy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+- API keys never exposed to client-side JavaScript (HTTP-only cookies)
+- All content stored locally in browser (localStorage)
+- No server-side data persistence beyond session
+- Users can provide their own API keys for full control
+
+## 📝 About This Project
+
+Built as a portfolio demonstration of:
+- Full-stack engineering capabilities (Next.js, React, API design)
+- LLM integration expertise (Claude API, prompt engineering)
+- UX innovation for AI-powered applications
+- Rapid prototyping skills for frontier AI capabilities
+
+Perfect for exploring how cutting-edge language models can be transformed into intuitive, human-centered interfaces that unlock new ways of working with AI.
+
+---
+
+**Tech Stack**: Next.js 16 • React 19 • Tailwind CSS v4 • Claude API • Vercel AI SDK
+
