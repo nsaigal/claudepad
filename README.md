@@ -86,8 +86,8 @@ Open [http://localhost:3000](http://localhost:3000) and start writing!
 
 ## How to Use
 
-<div align="left">
-  <img src="how-to.png" alt="ClaudePad How To Guide" width="30%">
+<div align="center">
+  <img src="how-to.png" alt="ClaudePad How To Guide" width="50%">
 </div>
 
 ## Design Philosophy
