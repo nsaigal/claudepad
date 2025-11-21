@@ -1,19 +1,26 @@
-# ✍️ ClaudePad
+```
+ ██████╗██╗      █████╗ ██╗   ██╗██████╗ ███████╗
+██╔════╝██║     ██╔══██╗██║   ██║██╔══██╗██╔════╝
+██║     ██║     ███████║██║   ██║██║  ██║█████╗  
+██║     ██║     ██╔══██║██║   ██║██║  ██║██╔══╝  
+╚██████╗███████╗██║  ██║╚██████╔╝██████╔╝███████╗
+ ╚═════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝
+                                                  
+██████╗  █████╗ ██████╗                          
+██╔══██╗██╔══██╗██╔══██╗                         
+██████╔╝███████║██║  ██║                         
+██╔═══╝ ██╔══██║██║  ██║                         
+██║     ██║  ██║██████╔╝                         
+╚═╝     ╚═╝  ╚═╝╚═════╝                          
+```
 
-**A freewriting tool powered by Claude AI**
+**A simple freewriting tool powered by Claude AI**
 
-ClaudePad is a prototype demonstrating how AI can enhance the writing experience through intuitive, collaborative interfaces.
-
-<div align="center">
-  <video src="https://qsjzljuspcgucfkhflnj.supabase.co/storage/v1/object/public/public_videos/claude%20pad%20demo%20final.mp4" width="70%" controls>
-    Your browser does not support the video tag.
-  </video>
-  <p><em>Watch a quick demo of ClaudePad</em></p>
-</div>
+<img src="./demo.gif" />
 
 ## Project Goals
 
-This project showcases:
+ClaudePad is a prototype demonstrating how AI can enhance the writing experience through intuitive, collaborative interfaces. This project showcases:
 
 - **Frontier AI Capabilities**: Real-time AI-powered editing with Claude's latest models
 - **Innovative UX**: Google Docs-style collaborative cursor animations that make AI feel like a writing partner
@@ -60,7 +67,7 @@ This project showcases:
 - **Smart text matching**: Complex HTML-to-text position mapping for accurate in-place edits
 - **Scroll-aware animations**: Auto-scrolls to edits in long documents with visual pulses
 
-## 🚀 Getting Started
+## Getting Started
 
 ```bash
 # Install dependencies
@@ -76,6 +83,12 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) and start writing!
+
+## How to Use
+
+<div align="left">
+  <img src="how-to.png" alt="ClaudePad How To Guide" width="30%">
+</div>
 
 ## Design Philosophy
 
