@@ -1,10 +1,17 @@
-# ClaudePad
+# ✍️ ClaudePad
 
 **A freewriting tool powered by Claude AI**
 
-ClaudePad is a full-stack prototype demonstrating how AI can enhance the writing experience through intuitive, collaborative interfaces. Built to explore emerging LLM capabilities and translate them into delightful user experiences.
+ClaudePad is a prototype demonstrating how AI can enhance the writing experience through intuitive, collaborative interfaces.
 
-## 🎯 Project Goals
+<div align="center">
+  <video src="https://qsjzljuspcgucfkhflnj.supabase.co/storage/v1/object/public/public_videos/claude%20pad%20demo%20final.mp4" width="70%" controls>
+    Your browser does not support the video tag.
+  </video>
+  <p><em>Watch a quick demo of ClaudePad</em></p>
+</div>
+
+## Project Goals
 
 This project showcases:
 
@@ -13,7 +20,7 @@ This project showcases:
 - **Rapid Prototyping**: Built with modern full-stack tools for quick iteration and deployment
 - **User-Centric Design**: Inline accept/decline controls, custom instructions, and context-aware suggestions
 
-## ✨ Key Features
+## Key Features
 
 ### Intelligent Editing
 - **Document-wide analysis**: Press ⌘+Enter to get AI-powered typo corrections and style improvements
@@ -30,7 +37,7 @@ This project showcases:
 - **Personal API keys**: Secure storage via HTTP-only cookies
 - **Full history**: Undo changes and export your work anytime
 
-## 🛠 Technical Implementation
+## Technical Implementation
 
 ### Frontend Architecture
 - **Framework**: Next.js (Pages Router) with React 19
@@ -70,7 +77,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) and start writing!
 
-## 💡 Design Philosophy
+## Design Philosophy
 
 This prototype embodies principles critical to frontier AI applications:
 
@@ -80,7 +87,7 @@ This prototype embodies principles critical to frontier AI applications:
 4. **Fail Gracefully**: Clear error messages, loading states, and fallbacks ensure reliability
 5. **Rapid Iteration**: Built for fast experimentation—easy to test new model capabilities or interaction patterns
 
-## 🎨 What Makes This Different
+## What Makes This Different
 
 Unlike traditional grammar checkers, ClaudePad demonstrates:
 
@@ -90,7 +97,7 @@ Unlike traditional grammar checkers, ClaudePad demonstrates:
 - **Learning interface**: Tracks user preferences to avoid repetitive suggestions
 - **Real-time collaboration feel**: Animations create emotional connection with the AI
 
-## 📊 Potential Extensions
+## Potential Extensions
 
 This prototype platform could be extended to explore:
 
@@ -100,14 +107,14 @@ This prototype platform could be extended to explore:
 - **Advanced prompt engineering**: A/B test different system prompts to optimize suggestion quality
 - **Usage analytics**: Gather insights on which AI suggestions users find most valuable
 
-## 🔒 Security & Privacy
+## Security & Privacy
 
 - API keys never exposed to client-side JavaScript (HTTP-only cookies)
 - All content stored locally in browser (localStorage)
 - No server-side data persistence beyond session
 - Users can provide their own API keys for full control
 
-## 📝 About This Project
+## About This Project
 
 Built as a portfolio demonstration of:
 - Full-stack engineering capabilities (Next.js, React, API design)
