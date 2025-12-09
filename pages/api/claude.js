@@ -40,12 +40,12 @@ export default async function handler(req, res) {
     : anthropic;
 
   try {
-    let systemPrompt;
-    let promptText;
+    let baseSystemPrompt;
+    let userMessage;
 
     if (isHighlightMode && highlightedText && prompt) {
       // Highlight mode: user wants to edit specific highlighted text
-      systemPrompt = `You are PHD level editor tasked with editing a specific highlighted portion of text based on the user's request.
+      baseSystemPrompt = `You are PHD level editor tasked with editing a specific highlighted portion of text based on the <user_request>.
         
         Instructions:
         - The user has highlighted a specific portion of text and provided a prompt describing how they want it edited.
@@ -71,10 +71,10 @@ export default async function handler(req, res) {
         If no edits are needed, output nothing (empty response).`;
       
       // Create prompt with highlighted text marked
-      promptText = `${message}\n\n<highlighted_text>${highlightedText}</highlighted_text>\n\nUser's request: ${prompt}`;
+      userMessage = `<document>${message}</document>\n\n<highlighted_text>${highlightedText}</highlighted_text>\n\n<user_request>${prompt}</user_request>`;
     } else {
       // Normal mode: general editing
-      systemPrompt = `You are PHD level editor tasked with editing a given excerpt.
+      baseSystemPrompt = `You are PHD level editor tasked with editing a given excerpt.
         
         Instructions:
         - Fix any typos. Use the <typo> tag to indicate the CORRECTED text (not just the correction word).
@@ -104,31 +104,60 @@ export default async function handler(req, res) {
 
         If no edits are needed, output nothing (empty response).`;
       
-      promptText = message;
+      userMessage = `<document>${message}</document>`;
     }
 
+    // Build messages array with prompt caching
+    const messages = [
+      {
+        role: 'system',
+        content: baseSystemPrompt,
+
+      },
+    ];
+
     // Include declined edits in prompt so Claude won't suggest them again
-    // This improves UX by respecting user preferences across multiple edit requests
     if (declinedEdits && declinedEdits.length > 0) {
       const declinedListJson = JSON.stringify(declinedEdits, null, 2);
-      systemPrompt += `\n\nIMPORTANT: The following edits were previously declined by the user. Do NOT suggest these same exact edits again even if you believe they are correct. This is reference data only - do NOT output this JSON in your response:\n${declinedListJson}\n\nRemember: Output ONLY the XML tags (<original>, <typo>, <improvement>, <reason>), never JSON or any other format.`;
+      messages.push({
+        role: 'system',
+        content: `IMPORTANT: The following edits were previously declined by the user. Do NOT suggest these same exact edits again even if you believe they are correct. This is reference data only - do NOT output this JSON in your response:\n${declinedListJson}\n\nRemember: Output ONLY the XML tags (<original>, <typo>, <improvement>, <reason>), never JSON or any other format.`,
+      });
     }
 
     // Allow users to customize Claude's editing behavior
-    // Examples: "prefer British English", "avoid contractions", "be more casual"
     if (customInstructions && customInstructions.trim()) {
-      systemPrompt += `\n\nADDITIONAL CUSTOM INSTRUCTIONS:\n${customInstructions.trim()}\n\nThese custom instructions should be followed in addition to the above rules.`;
+      messages.push({
+        role: 'system',
+        content: `ADDITIONAL CUSTOM INSTRUCTIONS:\n${customInstructions.trim()}\n\nThese custom instructions should be followed in addition to the above rules.`,
+      });
     }
 
+    // Add user message with cache control to cache everything
+    // Note: Cache will only work if total cached content >= 4096 tokens (Haiku 4.5 minimum)
+    // Also, if declinedEdits or customInstructions change, cache will be invalidated
+    messages.push({
+      role: 'user',
+      content: userMessage,
+      providerOptions: {
+        anthropic: { cacheControl: { type: 'ephemeral' } },
+      },
+    });
+
     const result = await generateText({
-      system: systemPrompt,
+      messages,
       model: anthropicClient("claude-haiku-4-5"),
-      prompt: promptText,
       // maxTokens: 1024,
     });
 
-    console.log(systemPrompt);
-    console.log(result.text);
+    // Log cache performance metrics
+    const anthropicUsage = result.response?.body?.usage || {};
+    console.log('Cache metrics:', JSON.stringify({
+      cache_creation_input_tokens: anthropicUsage.cache_creation_input_tokens || 0,
+      cache_read_input_tokens: anthropicUsage.cache_read_input_tokens || 0,
+      input_tokens: anthropicUsage.input_tokens || 0,
+      output_tokens: anthropicUsage.output_tokens || 0,
+    }, null, 2));
 
     /**
      * Parse Claude's response for edit suggestions
@@ -172,8 +201,6 @@ export default async function handler(req, res) {
         });
       }
     }
-    
-    console.log(edits);
 
     return res.status(200).json({ response: edits });
   } catch (error) {
