@@ -55,6 +55,7 @@ ClaudePad is a prototype demonstrating how AI can enhance the writing experience
 ### Backend & AI Integration
 - **API Layer**: Next.js API routes for secure server-side Claude API calls
 - **AI Model**: Claude Haiku (fast, efficient for real-time suggestions)
+- **Prompt Caching**: Optimized API usage with ephemeral caching for faster responses and reduced costs
 - **Security**: API keys stored in HTTP-only cookies (not accessible to client JavaScript)
 - **Parsing**: Custom XML-based response format for reliable edit extraction
 
@@ -109,6 +110,7 @@ Unlike traditional grammar checkers, ClaudePad demonstrates:
 - **Conversational prompting**: Users can highlight text and ask for specific changes in natural language
 - **Learning interface**: Tracks user preferences to avoid repetitive suggestions
 - **Real-time collaboration feel**: Animations create emotional connection with the AI
+- **Cost optimization**: Prompt caching reduces API costs for repeated requests
 
 ## Potential Extensions
 
